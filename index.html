@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Sat Measure</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="map-wrap">
+        <div id="map"></div>
+
+        <form id="search" class="search" autocomplete="off">
+          <input id="q" type="search" placeholder="Search address or paste lat, lng" aria-label="Search address" />
+          <button type="submit" class="btn primary">Go</button>
+          <button type="button" id="locate" class="btn icon" title="My location" aria-label="My location">◎</button>
+          <ul id="results" hidden></ul>
+        </form>
+
+        <div id="demo-banner" class="demo-banner" hidden>
+          <p><b>Live demo.</b> Drag a corner, tap <b>Area</b> to trace your own section, or change the rates. The full tool searches any address.</p>
+          <button type="button" id="demo-reset" class="btn small">Reset</button>
+        </div>
+
+        <div id="toolbar" class="toolbar">
+          <button class="btn tool" data-tool="area" title="Measure an area (A)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l7-3 9 5-3 11-11-2z" /></svg>Area
+          </button>
+          <button class="btn tool" data-tool="line" title="Measure a length (L)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18l6-8 5 5 7-10" /></svg>Line
+          </button>
+          <span class="draw-only sep"></span>
+          <button class="btn draw-only" data-act="undo" title="Undo last point (Backspace)">Undo</button>
+          <button class="btn primary draw-only" data-act="finish" title="Finish (Enter)">Finish</button>
+          <button class="btn draw-only" data-act="cancel" title="Cancel (Esc)">Cancel</button>
+        </div>
+
+        <div id="status" class="status" hidden></div>
+      </div>
+
+      <aside id="panel">
+        <header class="panel-head">
+          <select id="job-select" aria-label="Saved jobs"></select>
+          <button id="job-new" class="btn small">New</button>
+          <button id="job-del" class="btn small danger" title="Delete this job">Delete</button>
+        </header>
+
+        <section class="job-fields">
+          <label class="field wide">Job / customer<input id="job-name" type="text" /></label>
+          <label class="field wide">Address<input id="job-address" type="text" /></label>
+          <label class="field">Area rate<span class="unit-input">$<input id="rate-area" type="number" min="0" step="0.01" /><em>/sq ft</em></span></label>
+          <label class="field">Line rate<span class="unit-input">$<input id="rate-line" type="number" min="0" step="0.01" /><em>/ft</em></span></label>
+          <label class="field">Minimum<span class="unit-input">$<input id="minimum" type="number" min="0" step="1" /></span></label>
+        </section>
+
+        <div class="list-head">
+          <h2>Measurements</h2>
+          <button id="fit-all" class="btn small">Fit all</button>
+        </div>
+        <ul id="list"></ul>
+        <p id="empty" class="empty">Search the address, zoom in, then tap <b>Area</b> and click each corner of the driveway or lot. Tap the first point to close it.</p>
+
+        <section id="totals" class="totals"></section>
+
+        <label class="field wide">Notes<textarea id="notes" rows="3" placeholder="Oil stains, gate code, water access…"></textarea></label>
+
+        <div class="actions">
+          <button id="copy" class="btn">Copy summary</button>
+          <button id="print" class="btn">Print / PDF</button>
+        </div>
+        <textarea id="copy-out" class="copy-out" readonly hidden aria-label="Quote summary"></textarea>
+        <p class="hint">Drag a white corner to adjust it. Drag a small midpoint to add a corner. Right-click (or long-press) a corner to remove it.</p>
+      </aside>
+    </div>
+
+    <datalist id="names">
+      <option value="Driveway"></option>
+      <option value="Sidewalk"></option>
+      <option value="Walkway"></option>
+      <option value="Patio"></option>
+      <option value="Pool deck"></option>
+      <option value="Parking lot"></option>
+      <option value="Drive lane"></option>
+      <option value="Dumpster pad"></option>
+      <option value="Roof"></option>
+      <option value="House siding"></option>
+      <option value="Fence"></option>
+      <option value="Curb"></option>
+      <option value="Exclude: planter"></option>
+      <option value="Exclude: building"></option>
+    </datalist>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
